@@ -37,6 +37,21 @@ See [SKILL.md](./SKILL.md) — same contract the Grok/Cursor skill uses.
 Label outputs **Documented** until the host page is probed. Never treat a rail as Live Path B evidence.
 
 
+
+## Releases
+
+Tag → GitHub Release (no npm publish yet).
+
+1. Bump `package.json` version (or `scripts/cut-release.sh 0.1.1`).
+2. Merge to `main` (CI must pass).
+3. Push an **annotated** tag matching the version:
+
+```bash
+git tag -a v0.1.0 -m "chronify v0.1.0"
+git push origin v0.1.0
+```
+
+The `Release` workflow runs tests, checks tag ≡ `package.json`, zips the skill/CLI tree, and publishes a GitHub Release. Pre-release tags (`v0.2.0-rc.1`) mark the Release as prerelease.
 ## CI
 
 GitHub Actions on every PR and `main` push: Node 18/20/22 × `npm test` + validate + SVG/HTML deliver smoke.
