@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [18, 20, 22]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Validate example IR
+        run: npm run validate:example
+
+      - name: Deliver example surfaces
+        run: |
+          mkdir -p examples/out
+          node bin/chronify.mjs deliver timeline \
+            examples/journal-evolution.timeline.json \
+            examples/out/journal-evolution.timeline.svg \
+            --surface pages-rail --json
+          node bin/chronify.mjs deliver timeline \
+            examples/journal-evolution.timeline.json \
+            examples/out/journal-evolution.timeline.html \
+            --surface html --json
+          test -s examples/out/journal-evolution.timeline.svg
+          test -s examples/out/journal-evolution.timeline.html
+
+      - name: Guide CLI smoke
+        run: node bin/chronify.mjs guide "journal evolution rail" --json

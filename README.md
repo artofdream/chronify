@@ -1,3 +1,5 @@
+[![CI](https://github.com/artofdream/chronify/actions/workflows/ci.yml/badge.svg)](https://github.com/artofdream/chronify/actions/workflows/ci.yml)
+
 # chronify
 
 **Chronological** timeline diagrams from a small typed JSON IR — the Archify-shaped companion for *dated evolution* (journal rails, release history, Keep Learning chains).
@@ -34,6 +36,12 @@ See [SKILL.md](./SKILL.md) — same contract the Grok/Cursor skill uses.
 
 Label outputs **Documented** until the host page is probed. Never treat a rail as Live Path B evidence.
 
+
+## CI
+
+GitHub Actions on every PR and `main` push: Node 18/20/22 × `npm test` + validate + SVG/HTML deliver smoke.
+
+`main` is protected: PRs required, CI must pass, no force-push / delete (admins may bypass).
 ## License
 
 MIT © artofdream
