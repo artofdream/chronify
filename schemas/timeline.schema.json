@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/artofdream/chronify/schemas/timeline.schema.json",
+  "title": "Chronify timeline IR",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "diagram_type", "meta", "milestones"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "diagram_type": { "const": "timeline" },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["title"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "output": { "type": "string" },
+        "quality_profile": { "enum": ["standard", "showcase"] },
+        "orientation": { "enum": ["horizontal", "vertical"] },
+        "honesty": { "type": "string" }
+      }
+    },
+    "eras": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "label", "from", "to"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "label": { "type": "string" },
+          "from": { "type": "string" },
+          "to": { "type": "string" }
+        }
+      }
+    },
+    "milestones": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 24,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "date", "title"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "date": { "type": "string", "minLength": 4 },
+          "era": { "type": "string" },
+          "title": { "type": "string", "minLength": 1 },
+          "summary": { "type": "string" },
+          "href": { "type": "string" },
+          "slug": { "type": "string" },
+          "tag": { "type": "string" }
+        }
+      }
+    },
+    "cards": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "items"],
+        "properties": {
+          "dot": { "enum": ["cyan", "amber", "emerald", "rose", "violet", "slate"] },
+          "title": { "type": "string" },
+          "items": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+        }
+      }
+    }
+  }
+}

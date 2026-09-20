@@ -1,0 +1,39 @@
+{
+  "name": "chronify",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "Chronological timeline diagrams from typed JSON IR (Archify-shaped companion for dated evolution rails).",
+  "license": "MIT",
+  "bin": {
+    "chronify": "./bin/chronify.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "node --test test/*.mjs",
+    "validate:example": "node bin/chronify.mjs validate timeline examples/journal-evolution.timeline.json --json",
+    "deliver:example": "node bin/chronify.mjs deliver timeline examples/journal-evolution.timeline.json examples/out/journal-evolution.timeline.html --surface html && node bin/chronify.mjs deliver timeline examples/journal-evolution.timeline.json examples/out/journal-evolution.timeline.svg --surface pages-rail"
+  },
+  "files": [
+    "bin",
+    "schemas",
+    "renderers",
+    "examples",
+    "SKILL.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artofdream/chronify.git"
+  },
+  "keywords": [
+    "timeline",
+    "chronology",
+    "diagram",
+    "svg",
+    "archify-companion"
+  ]
+}

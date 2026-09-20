@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "diagram_type": "timeline",
+  "meta": {
+    "title": "AEA journal — evolution rail",
+    "output": "journal-evolution.timeline.html",
+    "quality_profile": "showcase",
+    "orientation": "horizontal",
+    "honesty": "Documented aid until architecture.artof.link/journal.html probe"
+  },
+  "eras": [
+    { "id": "foundations", "label": "Foundations", "from": "2026-08", "to": "2026-09-10" },
+    { "id": "kla", "label": "Keep Learning", "from": "2026-09-14", "to": "2026-09-21" },
+    { "id": "ops", "label": "Ops honesty", "from": "2026-09-17", "to": "2026-09-20" }
+  ],
+  "milestones": [
+    {
+      "id": "m-origin",
+      "date": "2026-08",
+      "era": "foundations",
+      "title": "Why this started",
+      "summary": "Wishlist → Adaptive Workspace",
+      "href": "#why-this-project-started",
+      "tag": "origin"
+    },
+    {
+      "id": "m-honesty",
+      "date": "2026-08",
+      "era": "foundations",
+      "title": "Claim vs probe",
+      "summary": "Honesty Gate",
+      "href": "#claim-vs-probe",
+      "tag": "honesty"
+    },
+    {
+      "id": "m-hosts",
+      "date": "2026-08",
+      "era": "foundations",
+      "title": "Two hostnames",
+      "summary": "Docs ≠ shop",
+      "href": "#two-hostnames-two-jobs",
+      "tag": "ops"
+    },
+    {
+      "id": "m-agent-os",
+      "date": "2026-09-14",
+      "era": "kla",
+      "title": "Agent-OS vocabulary",
+      "summary": "Autonomy ladder",
+      "href": "#keep-learning-agent-os-vocabulary-2026-09-14",
+      "tag": "kla"
+    },
+    {
+      "id": "m-decision",
+      "date": "2026-09-19",
+      "era": "kla",
+      "title": "Decision layer",
+      "summary": "Choice · Score · Gate",
+      "href": "#keep-learning-decision-layer-vocabulary-2026-09-19",
+      "tag": "kla"
+    },
+    {
+      "id": "m-anthropic",
+      "date": "2026-09-20",
+      "era": "kla",
+      "title": "Anthropic workflows",
+      "summary": "Workflow vs Agent",
+      "href": "#keep-learning-anthropic-agentic-workflows-2026-09-20",
+      "tag": "kla"
+    },
+    {
+      "id": "m-holmberg",
+      "date": "2026-09-21",
+      "era": "kla",
+      "title": "Holmberg / LangChain",
+      "summary": "Recipes · Model-tier · AutoMode",
+      "href": "#keep-learning-holmberg-langchain-harness-2026-09-21",
+      "tag": "kla"
+    },
+    {
+      "id": "m-sleep",
+      "date": "2026-09-17",
+      "era": "ops",
+      "title": "Path B evening sleep",
+      "summary": "Resting page",
+      "href": "#path-b-sleeps-on-a-schedule-evening-demo-resting-page",
+      "tag": "finops"
+    },
+    {
+      "id": "m-archify",
+      "date": "2026-09-19",
+      "era": "ops",
+      "title": "Archify embeds",
+      "summary": "Same-origin Pages",
+      "href": "#archify-embeds-on-the-sister-site",
+      "tag": "archify"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "How to read",
+      "items": [
+        "Curated milestones — not a daily changelog",
+        "Chips jump to journal sections",
+        "Documented ≠ Live"
+      ]
+    },
+    {
+      "dot": "amber",
+      "title": "Keep Learning chain",
+      "items": [
+        "14 Sep agent-OS → 19 Sep decision layer → 20 Sep Anthropic → 21 Sep Holmberg/LangChain",
+        "Adopt gaps only; reject vendor SDK as Path B runtime"
+      ]
+    }
+  ]
+}

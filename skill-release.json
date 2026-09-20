@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "skillId": "chronify",
+  "channel": "development",
+  "version": "0.1.0",
+  "source": {
+    "repository": "https://github.com/artofdream/chronify"
+  }
+}
