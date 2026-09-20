@@ -1,0 +1,101 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch exact tag object
+        shell: bash
+        run: git fetch --force --no-tags origin "+refs/tags/${GITHUB_REF_NAME}:refs/tags/${GITHUB_REF_NAME}"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Validate + deliver smoke
+        run: |
+          npm run validate:example
+          mkdir -p examples/out
+          node bin/chronify.mjs deliver timeline \
+            examples/journal-evolution.timeline.json \
+            examples/out/journal-evolution.timeline.svg \
+            --surface pages-rail --json
+          node bin/chronify.mjs deliver timeline \
+            examples/journal-evolution.timeline.json \
+            examples/out/journal-evolution.timeline.html \
+            --surface html --json
+
+      - name: Tag must match package.json version
+        shell: bash
+        run: |
+          pkg_version="$(node -p "require('./package.json').version")"
+          tag="${GITHUB_REF_NAME#v}"
+          if [ "$pkg_version" != "$tag" ]; then
+            echo "::error::tag v$tag does not match package.json version $pkg_version"
+            exit 1
+          fi
+
+      - name: Classify prerelease (semver preid)
+        id: kind
+        shell: bash
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          if [[ "$version" == *-* ]]; then
+            echo "prerelease=true" >> "$GITHUB_OUTPUT"
+            echo "make_latest=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "prerelease=false" >> "$GITHUB_OUTPUT"
+            echo "make_latest=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Stable release tag must be annotated
+        if: steps.kind.outputs.prerelease == 'false'
+        shell: bash
+        run: |
+          if [[ "$(git cat-file -t "refs/tags/${GITHUB_REF_NAME}" 2>/dev/null || true)" != "tag" ]]; then
+            echo "::error::stable releases require an annotated tag: ${GITHUB_REF_NAME}"
+            exit 1
+          fi
+
+      - name: Build release archive
+        shell: bash
+        run: |
+          set -euo pipefail
+          ver="${GITHUB_REF_NAME#v}"
+          stage="$RUNNER_TEMP/chronify-$ver"
+          mkdir -p "$stage"
+          # Ship the skill + CLI surface (same set as package.json "files")
+          for path in bin schemas renderers examples SKILL.md README.md LICENSE package.json references skill-release.json; do
+            if [ -e "$path" ]; then
+              cp -a "$path" "$stage/"
+            fi
+          done
+          (
+            cd "$RUNNER_TEMP"
+            zip -r "chronify-$ver.zip" "chronify-$ver"
+          )
+          cp "$RUNNER_TEMP/chronify-$ver.zip" "./chronify-$ver.zip"
+          echo "ASSET=chronify-$ver.zip" >> "$GITHUB_ENV"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: chronify-*.zip
+          generate_release_notes: true
+          prerelease: ${{ steps.kind.outputs.prerelease }}
+          make_latest: ${{ steps.kind.outputs.make_latest }}
