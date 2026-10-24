@@ -24,6 +24,10 @@ model as Archify (typed spec → validate → deliver standalone artifact), but 
 | Pipelines / lineage | **Archify** `dataflow` |
 | Status / state machine | **Archify** `lifecycle` |
 | **Dated milestones / eras / journal evolution** | **Chronify** `timeline` |
+| Timestamped events on a proportional clock (incident review, observed history) | **Archify** `timeline` (3.1+), a different schema; see `references/vs-archify.md` |
+
+Archify's own `timeline` needs a full ISO timestamp with offset per event and has no
+jump links; there is no Chronify→Archify converter (see `references/vs-archify.md`).
 
 Do **not** use Archify `lifecycle` for “what happened when.” Lifecycle is
 queued→building→live. Chronify is 2026-09-14 → 2026-09-21 with jump targets.

@@ -5,6 +5,8 @@
 **Chronological** timeline diagrams from a small typed JSON IR — the Archify-shaped companion for *dated evolution* (journal rails, release history, Keep Learning chains).
 
 > Not Archify `lifecycle`. Lifecycle is a state machine (queued→live). Chronify is **when** things happened, with jump targets.
+>
+> Archify 3.1+ also has its own `timeline` type (exact timestamps on a proportional clock). It is a different schema, not interchangeable with Chronify's; see [Relationship to Archify's timeline](#relationship-to-archifys-timeline).
 
 ## Install / run
 
@@ -31,6 +33,10 @@ See [SKILL.md](./SKILL.md) — same contract the Grok/Cursor skill uses.
 ## IR
 
 `schema_version: 1`, `diagram_type: "timeline"`. See `schemas/timeline.schema.json` and `examples/`.
+
+## Relationship to Archify's `timeline`
+
+Archify (3.1+) has a `timeline` diagram type for timestamped events on a proportional clock (incident reviews, observed release history). Chronify's `timeline` is for curated, dated milestones that jump to sections of a page. The two schemas differ and neither tool reads the other's files; **there is no converter**. A small Chronify timeline can be re-authored by hand as an Archify timeline when you have full timestamps with offsets, losing eras, jump links and tags. Documented vs Probed claims, a field mapping and a verified example are in [references/vs-archify.md](./references/vs-archify.md).
 
 ## Honesty
 
